@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🍞 작은 조각들이 모이는 중</title>
+    <style>
+      @font-face {
+        font-family: "OngleipParkDahyeon";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2")
+          format("woff2");
+        font-weight: normal;
+        font-display: swap;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "OngleipParkDahyeon", sans-serif;
+        background-color: #fff9e8;
+        color: #5c3d2e;
+        min-height: 100vh;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .container {
+        max-width: 500px;
+        width: 100%;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .home-link {
+        display: inline-block;
+        font-size: 32px;
+        text-decoration: none;
+        margin-bottom: 10px;
+        transition: transform 0.2s ease;
+      }
+
+      .home-link:hover {
+        transform: scale(1.1) rotate(-5deg);
+      }
+
+      .title {
+        font-size: 26px;
+        font-weight: normal;
+        color: #5c3d2e;
+        margin-bottom: 8px;
+      }
+
+      .subtitle {
+        font-size: 15px;
+        color: #999;
+      }
+
+      .section {
+        margin-bottom: 0;
+      }
+
+      .section-title {
+        display: none;
+      }
+
+      /* 조각 카드 스타일 */
+      .card {
+        background-color: #ffffff;
+        border-radius: 8px 20px 8px 20px;
+        padding: 22px 24px;
+        margin-bottom: 16px;
+        box-shadow:
+          3px 3px 0 rgba(92, 61, 46, 0.1),
+          0 4px 12px rgba(0, 0, 0, 0.06);
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: block;
+        position: relative;
+        border: 2px solid transparent;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        border-radius: 8px 20px 8px 20px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.5),
+          rgba(0, 0, 0, 0.05)
+        );
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .card:hover::before {
+        opacity: 1;
+      }
+
+      .card:nth-child(odd) {
+        transform: rotate(-0.5deg);
+      }
+
+      .card:nth-child(even) {
+        transform: rotate(0.5deg);
+        border-radius: 20px 8px 20px 8px;
+      }
+
+      .card:hover {
+        transform: translateY(-5px) rotate(0deg) scale(1.02);
+        box-shadow:
+          5px 5px 0 rgba(92, 61, 46, 0.15),
+          0 8px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .card.risu {
+        background: linear-gradient(135deg, #f3f0ff 0%, #ffffff 100%);
+        border-color: rgba(205, 180, 255, 0.3);
+      }
+
+      .card.common {
+        background: linear-gradient(135deg, #fff5f8 0%, #ffffff 100%);
+        border-color: rgba(255, 192, 203, 0.3);
+      }
+
+      .card-name {
+        font-size: 20px;
+        font-weight: normal;
+        color: #5c3d2e;
+      }
+
+      /* 툴팁 스타일 */
+      .card-birthday {
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-5px);
+        background-color: rgba(92, 61, 46, 0.9);
+        color: #fff;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 13px;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .card-birthday::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 5px solid transparent;
+        border-top-color: rgba(92, 61, 46, 0.9);
+      }
+
+      .card:hover .card-birthday {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-10px);
+      }
+
+      /* 케이크 조각 SVG 스타일 */
+      .cake-icon {
+        width: 14px;
+        height: 14px;
+        display: inline-block;
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 40px;
+        font-size: 12px;
+        color: #bdbdbd;
+      }
+
+      @media (max-width: 480px) {
+        .home-link {
+          font-size: 28px;
+        }
+
+        .title {
+          font-size: 22px;
+        }
+
+        .card {
+          padding: 20px;
+        }
+
+        .card-name {
+          font-size: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <a href="https://toastout.github.io/toast/" class="home-link">🍰</a>
+        <div class="title">조각 모음</div>
+        <div class="subtitle">작고 소박한 도구들</div>
+      </div>
+
+      <div class="section">
+        <a href="https://toastout.github.io/mix/" class="card risu">
+          <div class="card-name">상태창 믹서기</div>
+          <div class="card-birthday">
+            <svg
+              class="cake-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3 17L5 11L7 17H3Z"
+                fill="#FFB84D"
+                stroke="#D4930A"
+                stroke-width="1.5"
+              />
+              <circle cx="5" cy="9" r="1" fill="#FF6B9D" />
+              <path
+                d="M5 9V7"
+                stroke="#FF6B9D"
+                stroke-width="1"
+                stroke-linecap="round"
+              />
+              <rect
+                x="3"
+                y="17"
+                width="4"
+                height="3"
+                fill="#F4E4C1"
+                stroke="#D4930A"
+                stroke-width="1.5"
+              />
+            </svg>
+            2025.12.04
+          </div>
+        </a>
+
+        <a href="https://toastout.github.io/log/" class="card common">
+          <div class="card-name">로그 생성기 (텍스트 기반)</div>
+          <div class="card-birthday">
+            <svg
+              class="cake-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3 17L5 11L7 17H3Z"
+                fill="#FFB84D"
+                stroke="#D4930A"
+                stroke-width="1.5"
+              />
+              <circle cx="5" cy="9" r="1" fill="#FF6B9D" />
+              <path
+                d="M5 9V7"
+                stroke="#FF6B9D"
+                stroke-width="1"
+                stroke-linecap="round"
+              />
+              <rect
+                x="3"
+                y="17"
+                width="4"
+                height="3"
+                fill="#F4E4C1"
+                stroke="#D4930A"
+                stroke-width="1.5"
+              />
+            </svg>
+            2026.01.18
+          </div>
+        </a>
+
+        <a href="https://toastout.github.io/chat/" class="card common">
+          <div class="card-name">글 변환기</div>
+          <div class="card-birthday">
+            <svg
+              class="cake-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3 17L5 11L7 17H3Z"
+                fill="#FFB84D"
+                stroke="#D4930A"
+                stroke-width="1.5"
+              />
+              <circle cx="5" cy="9" r="1" fill="#FF6B9D" />
+              <path
+                d="M5 9V7"
+                stroke="#FF6B9D"
+                stroke-width="1"
+                stroke-linecap="round"
+              />
+              <rect
+                x="3"
+                y="17"
+                width="4"
+                height="3"
+                fill="#F4E4C1"
+                stroke="#D4930A"
+                stroke-width="1.5"
+              />
+            </svg>
+            2026.01.18
+          </div>
+        </a>
+      </div>
+
+      <div class="footer">🍞</div>
+    </div>
+  </body>
+</html>
